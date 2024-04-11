@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Progressive Enhancement">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <title>Let's Not Ruin the Web - Complicated</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main>
+        <h1>Replication of Form Controls</h1>
+        <p>
+            JavaScript frameworks require you to re-implement the built in form
+            controls that come with the web. This often comes with host of
+            state management problems that are solved in the web already today.
+        </p>
+        <p>
+            ES6 JavaScript Example:
+        </p>
+<pre>
+<code>
+import <var>React</var>, { <var>useEffect</var>, <var>useCallback</var> } from 'react'
+// Replication of Form Controls often to apply CSS via JavaScript.
+import { <var>Button</var>, <var>Link</var>, <var>Label</var>, <var>Input</var> } from 'fancy-form'
+// Replication of loading spinner built into browser.
+import { <var>Spinner</var> } from 'my-spinner'
+import { <var>toast</var> } from 'my-toaster'
+import { <var>useSubmitAuth</var> } from 'my-auth'
+
+/**
+ * Authentication form component.
+ */
+const <var>MyForm</var> = () => {
+    // Replicated storage of form state which is automatically managed by the browser.
+    const [<var>password</var>, <var>setPasword</var>] = <var>useState</var>('')
+    const [<var>username</var>, <var>setUsername</var>] = <var>useState</var>('')
+    const [<var>submitAuth</var>, { <var>data</var>, <var>loading</var>, <var>error</var> }] = <var>useSubmitAuth</var>()
+
+    <var>useEffect</var>(() => {
+        if (<var>error</var>) {
+            <var>toast</var>.<var>error</var>('An unexpected error has occured while logging in.')
+        }
+    }, [error])
+
+    const <var>onSubmit</var> = <var>useCallback</var>((<var>event</var>) => {
+        <var>event</var>.<var>preventDefault</var>()
+        <var>event</var>.<var>stopPropagation</var>()
+        <var>submitAuth</var>({
+            <var>username</var>: <var>username</var>,
+            <var>password</var>: <var>password</var>,
+        })
+    }, [<var>submitAuth</var>, <var>username</var>, <var>password</var>])
+
+    // Functions that may need to be created in order to replicate the built in
+    // form controls.
+    /**
+     * Handles username input.
+     */
+    const <var>onUsernameChange</var> = <var>useCallback</var>((<var>value</var>) => {
+        if (<var>!value</var>) {
+            <var>setUsername</var>('')
+        }
+        <var>setUsername</var>(<var>value</var>)
+    }, [<var>setUsername</var>])
+
+    /**
+     * Handles password input.
+     */
+    const <var>onPasswordChange</var> = <var>useCallback</var>((<var>value</var>) => {
+        if (<var>!value</var>) {
+            <var>setPassword</var>('')
+        }
+        <var>setPassword</var>(<var>value</var>)
+    }, [<var>setPassword</var>])
+
+    // Implementation of the loading indicator.
+    if (<var>loading</var>) {
+        return (
+            &lt;Spinner /&gt;
+        )
+    }
+    
+    // Display the error if the form submission failed for any reason.
+    if (<var>error</var>) {
+        return (
+            &lt;p&gt;Please try reloading the page.&lt;/p&gt;
+        )
+    }
+
+    // Display the form and attach all of the state and event handlers.
+    return (
+        &lt;form id="auth" onSubmit={event => event.preventDefault()}&gt;
+            &lt;Label htmlFor="username"&gt;
+                Username
+            &lt;/Label&gt;
+            &lt;Input type="text" id="username" name="username" onChange={onUsernameChange} /&gt;
+            &lt;Label htmlFor="password"&gt;
+                Password
+            &lt;/Label&gt;
+            &lt;Input type="password" id="password" name="password" onChange={onPasswordChange} /&gt;
+            &lt;div class="controls"&gt;
+                &lt;Button type="submit" onClick={onSubmit}&gt;Login&gt;/Button&gt;
+                &lt;Link to="/create-account"&gt;Create Account&gt;/Link&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+    )
+}
+
+export default <var>MyForm</var>
+</code>
+        </pre>
+    </main>
+    <nav>
+        <a href="slide3.html">Previous</a>
+        <a href="slide5.html">Next</a>
+    </nav>
+</body>
+</html>

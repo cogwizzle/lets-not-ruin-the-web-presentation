@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Progressive Enhancement">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <title>Let's Not Ruin the Web - Complicated</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main>
+        <h1>Platform Equivalent without JavaScript</h1>
+        <p>
+            Here is the built in platform equivalent without JavaScript.
+            It uses the browsers built in loading spinner. It doesn't require
+            any state management outside of what the browser provides in the
+            form.
+        </p>
+        <pre>
+<code>
+&lt;div class="flash"&gt;Unable to authenticate.&lt;/div&gt;
+&lt;form method="post" action="/auth/login"&gt;
+    &lt;input type="hidden" name="csrf-token" id="csrf-token" value="random_token" /&gt;
+    &lt;label for="username"&gt;Username&lt;/label&gt;
+    &lt;input type="text" name="username" id="username" /&gt;
+    &lt;label for="password"&gt;Password&lt;/label&gt;
+    &lt;input type="password" name="password" id="password" /&gt;
+    &lt;button type="submit"&gt;Login&lt;/button&gt;
+&lt;/form&gt;
+</code>
+        </pre>
+    </main>
+    <nav>
+        <a href="slide4.html">Previous</a>
+        <a href="slide6.html">Next</a>
+    </nav>
+</body>
+</html>
